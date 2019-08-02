@@ -1,0 +1,33 @@
+{
+  "name": "boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "dependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.17.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "typescript": "^3.5.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "tsc": "tsc -W",
+    "ndm": "nodemon ./build/server.js",
+    "dev": "ts-node-dev --respawn --transpileOnly server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustinCast/BoilerPlate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JustinCast/BoilerPlate/issues"
+  },
+  "homepage": "https://github.com/JustinCast/BoilerPlate#readme"
+}
