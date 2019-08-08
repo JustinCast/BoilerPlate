@@ -18,7 +18,8 @@
   "scripts": {
     "tsc": "tsc -W",
     "ndm": "nodemon ./build/server.js",
-    "dev": "ts-node-dev --respawn --transpileOnly server.ts"
+    "dev": "ts-node-dev --respawn --transpileOnly server.ts",
+    "json": "json-server --host justincast --watch db.json"
   },
   "repository": {
     "type": "git",
