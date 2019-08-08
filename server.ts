@@ -4,7 +4,8 @@ import bodyParser = require("body-parser");
 //import { app } from "";
 
 class Server {
-  app: express.Application = express();
+  // creación de la instancia del middleware de express
+  app: express.Application;
 
   constructor() {
     this.app = express();
@@ -14,8 +15,12 @@ class Server {
 
   /**
    * Metodo de configuración y cors
+   * CORS : Cross Origin Resource Sharing
    */
   config(): void {
+    // body-parser parsea el contenido proveniente en la solicitud
+    // para permitir una interface de tratamiento de datos más fácil
+    this.app.use(bodyParser.urlencoded({extended: true}));
     this.app.use(bodyParser.json());
     this.app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
@@ -36,8 +41,12 @@ class Server {
    * Configuración de entrada al enturador
    */
   routerConfig(): void {
-    this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
+    //this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
+
+    // seteo de nuestro manejador
     this.app.use('/api', (req, res) => res.send('Hello world'));
+
+    // redireccionamiento a vistas
     /*app.get("/*", function(req, res) {
       res.sendFile(path.join(__dirname + "/dist/verduleriavirtualweb/index.html"));
     });*/
@@ -47,4 +56,5 @@ class Server {
   }
 }
 
+// exportación de nuestro middleware
 export default new Server().app;
