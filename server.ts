@@ -46,11 +46,6 @@ class Server {
     // seteo de nuestro manejador
     this.app.use('/api', (req, res) => res.send('Hello world'));
 
-    // redireccionamiento a vistas
-    /*app.get("/*", function(req, res) {
-      res.sendFile(path.join(__dirname + "/dist/verduleriavirtualweb/index.html"));
-    });*/
-
     //Set Port
     this.app.listen(process.env.PORT || 5000);
   }
