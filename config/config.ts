@@ -1,6 +1,7 @@
+require('dotenv').config();
 export const c = {  
-  user: 'cm_learning',
-  password: 'A6Pw6qJkVfRqq5uV',
-  server: '172.24.4.40',
-  database: 'OctoBird'
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_HOST,
+  database: process.env.DB_NAME
 };
