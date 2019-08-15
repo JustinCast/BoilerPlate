@@ -1,9 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var bodyParser = require("body-parser");
 //import { path } from "path";
 //import { app } from "";
+var VehicleRouter_1 = __importDefault(require("./routes/VehicleRouter"));
 var Server = /** @class */ (function () {
     function Server() {
         this.app = express();
@@ -33,11 +37,7 @@ var Server = /** @class */ (function () {
     Server.prototype.routerConfig = function () {
         //this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
         // seteo de nuestro manejador
-        this.app.use('/api', function (req, res) { return res.send('Hello world'); });
-        // redireccionamiento a vistas
-        /*app.get("/*", function(req, res) {
-          res.sendFile(path.join(__dirname + "/dist/verduleriavirtualweb/index.html"));
-        });*/
+        this.app.use('/vehicles', VehicleRouter_1.default);
         //Set Port
         this.app.listen(process.env.PORT || 5000);
     };

@@ -2,6 +2,7 @@ import express = require("express");
 import bodyParser = require("body-parser");
 //import { path } from "path";
 //import { app } from "";
+import VehicleRouter from './routes/VehicleRouter';
 
 class Server {
   // creación de la instancia del middleware de express
@@ -44,7 +45,7 @@ class Server {
     //this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
 
     // seteo de nuestro manejador
-    this.app.use('/api', (req, res) => res.send('Hello world'));
+    this.app.use('/vehicles', VehicleRouter);
 
     //Set Port
     this.app.listen(process.env.PORT || 5000);

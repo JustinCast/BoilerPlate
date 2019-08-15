@@ -1,14 +1,27 @@
 import { Router, Request, Response } from 'express';
+const { config } = require("dotenv");  
+import { c } from "../../config/config";
+const { ConnectionPool } = require("mssql");  
 
 class VehicleRouter {
   router: Router;
 
   constructor() {
     this.router = Router();
+    config();
   }
 
-  getVehicles(): void {
-
+  async getVehicles(req: Request, res: Response) {
+    try {
+      const pool = await new ConnectionPool(c).connect();
+      const result = await pool.request()
+          .query("SELECT * FROM vehicle");
+  
+      pool.close();
+      res.json(result.recordset);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   getVehicle(): void {
