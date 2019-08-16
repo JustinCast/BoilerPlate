@@ -48,7 +48,9 @@ class Server {
     this.app.use('/vehicles', VehicleRouter);
 
     //Set Port
-    this.app.listen(process.env.PORT || 5000);
+    let port = 5000;
+    this.app.listen(process.env.PORT || port);
+    console.log("Listening on port " + port);
   }
 }
 

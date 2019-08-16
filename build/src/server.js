@@ -39,7 +39,9 @@ var Server = /** @class */ (function () {
         // seteo de nuestro manejador
         this.app.use('/vehicles', VehicleRouter_1.default);
         //Set Port
-        this.app.listen(process.env.PORT || 5000);
+        var port = 5000;
+        this.app.listen(process.env.PORT || port);
+        console.log("Listening on port " + port);
     };
     return Server;
 }());
