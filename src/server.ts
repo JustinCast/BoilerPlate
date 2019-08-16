@@ -3,7 +3,10 @@ import bodyParser = require("body-parser");
 //import { path } from "path";
 //import { app } from "";
 
+
+
 class Server {
+
   app: express.Application = express();
 
   constructor() {
@@ -15,10 +18,14 @@ class Server {
   /**
    * Metodo de configuración y cors
    */
-  config(): void {
+
+  config(): void 
+  {
+
+    this.app.use(bodyParser.urlencoded({extended:true}));
     this.app.use(bodyParser.json());
     this.app.use((req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Origin", "*"); //ese asterisco es cambiable por http://algo.com con el asterisoc acepta cualquier peticion
       res.header(
         "Access-Control-Allow-Methods",
         "GET, POST, PUT, DELETE, OPTIONS"
@@ -32,18 +39,20 @@ class Server {
     });
   }
 
-  /**
+  /*
    * Configuración de entrada al enturador
    */
+
   routerConfig(): void {
     this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
     this.app.use('/api', (req, res) => res.send('Hello world'));
+
     /*app.get("/*", function(req, res) {
       res.sendFile(path.join(__dirname + "/dist/verduleriavirtualweb/index.html"));
     });*/
 
     //Set Port
-    this.app.listen(process.env.PORT || 5000);
+    this.app.listen(process.env.PORT || 3000);
   }
 }
 
