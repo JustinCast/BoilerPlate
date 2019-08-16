@@ -4,7 +4,7 @@ import bodyParser = require("body-parser");
 //import { app } from "";
 
 class Server {
-  app: express.Application = express();
+  app: express.Application;
 
   constructor() {
     this.app = express();
