@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "mssql": "^5.1.0",
     "nodemon": "^1.19.1",
+    "pg": "^7.12.1",
     "typescript": "^3.5.3"
   },
   "devDependencies": {

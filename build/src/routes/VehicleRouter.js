@@ -39,6 +39,7 @@ var express_1 = require("express");
 var config = require("dotenv").config;
 var config_1 = require("../../config/config");
 var ConnectionPool = require("mssql").ConnectionPool;
+var Client = require('pg').Client;
 var VehicleRouter = /** @class */ (function () {
     function VehicleRouter() {
         this.router = express_1.Router();
@@ -70,8 +71,59 @@ var VehicleRouter = /** @class */ (function () {
             });
         });
     };
-    VehicleRouter.prototype.getVehicle = function () {
+    VehicleRouter.prototype.getVehicle = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var pool, result, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, new ConnectionPool(config_1.c).connect()];
+                    case 1:
+                        pool = _a.sent();
+                        return [4 /*yield*/, pool.request()
+                                .query('SELECT * FROM vehicle WHERE id = ' + req.params.id)];
+                    case 2:
+                        result = _a.sent();
+                        pool.close();
+                        res.json(result.recordset);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
     };
+    /*async getVehiclesPG(req : Request, res: Response){
+       try {
+         let client = new Client({
+           host:'172.24.4.41',
+           user:'cm_learning',
+           password:'A6Pw6qJkVfRqq5uV',
+           database:'OctoBird',
+           port:5432
+         });
+         client.connect(err => {
+           if(err){
+             res.json(err)
+           }
+           else {
+             let query = {
+               text: "SELECT * FROM vehicle",
+               values:[]
+             };
+             client.query(query.text)
+           }
+         })
+         
+         const res = await client.query('select * from vehicle')
+       } catch (error) {
+         console.error(error);
+       }
+     }*/
     VehicleRouter.prototype.routes = function () {
         this.router.get('/getVehicles', this.getVehicles);
         this.router.get('/getVehicle/:id', this.getVehicle);
