@@ -70,6 +70,8 @@ var VehicleRouter = /** @class */ (function () {
             });
         });
     };
+    VehicleRouter.prototype.getVhieclesPostgres = function (req, res) {
+    };
     VehicleRouter.prototype.getVehicle = function () {
     };
     VehicleRouter.prototype.routes = function () {

@@ -46,6 +46,7 @@ class Server {
 
     // seteo de nuestro manejador
     this.app.use('/vehicles', VehicleRouter);
+    this.app.get('/hola', () => console.log('Hola Mundo'));
 
     //Set Port
     this.app.listen(process.env.PORT || 5000);
