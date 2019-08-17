@@ -24,7 +24,7 @@ class VehicleRouter {
     }
   }
 
-  getVehicle(): void {
+  getVehicleById(): void {
 
   }
 
@@ -32,7 +32,7 @@ class VehicleRouter {
 
   routes() {
     this.router.get('/getVehicles', this.getVehicles);
-    this.router.get('/getVehicle/:id', this.getVehicle);
+    this.router.get('/getVehicle/:id', this.getVehicleById);
   }
 }
 

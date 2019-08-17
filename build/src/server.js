@@ -38,6 +38,7 @@ var Server = /** @class */ (function () {
         //this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
         // seteo de nuestro manejador
         this.app.use('/vehicles', VehicleRouter_1.default);
+        this.app.get('/hola', function () { return console.log("Hola mundo"); });
         //Set Port
         this.app.listen(process.env.PORT || 5000);
     };

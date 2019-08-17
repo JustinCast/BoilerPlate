@@ -1,5 +1,7 @@
 import express = require("express");
 import bodyParser = require("body-parser");
+
+
 //import { path } from "path";
 //import { app } from "";
 import VehicleRouter from './routes/VehicleRouter';
@@ -46,6 +48,7 @@ class Server {
 
     // seteo de nuestro manejador
     this.app.use('/vehicles', VehicleRouter);
+    this.app.get('/hola', () => console.log("Hola mundo"))
 
     //Set Port
     this.app.listen(process.env.PORT || 5000);
