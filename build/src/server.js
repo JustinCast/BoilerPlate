@@ -10,6 +10,13 @@ var bodyParser = require("body-parser");
 var VehicleRouter_1 = __importDefault(require("./routes/VehicleRouter"));
 var Server = /** @class */ (function () {
     function Server() {
+        // my on middlewares
+        this.middlewares = {
+            isLoggedIn: function (req, res, next) {
+                console.log("query: " + req.query.id);
+                return next();
+            }
+        };
         this.app = express();
         this.config();
         this.routerConfig();
@@ -23,12 +30,13 @@ var Server = /** @class */ (function () {
         // para permitir una interface de tratamiento de datos más fácil
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
-        this.app.use(function (req, res, next) {
+        this.app.use(function (_req, res, next) {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            res.setHeader('Content-Type', 'application/json');
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
             res.header("Access-Control-Allow-Credentials", "true");
-            next();
+            next(); // chain the another middleware in pipeline
         });
     };
     /**
@@ -38,7 +46,15 @@ var Server = /** @class */ (function () {
         //this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
         // seteo de nuestro manejador
         this.app.use('/vehicles', VehicleRouter_1.default);
+<<<<<<< HEAD
         this.app.get("/hola", function () { return console.log("Hola mundo!"); });
+=======
+        this.app.get('/test', this.middlewares.isLoggedIn, function (req, res) {
+            console.log("inside test route config");
+            console.log(req.headers);
+            res.send({ message: 'ok' });
+        });
+>>>>>>> master
         //Set Port
         this.app.listen(process.env.PORT || 5000);
     };

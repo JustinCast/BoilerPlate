@@ -2,7 +2,7 @@
   "name": "boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "./src/server.ts",
   "directories": {
     "doc": "docs",
     "test": "tests"
