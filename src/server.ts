@@ -5,10 +5,20 @@ import bodyParser = require("body-parser");
 //import { path } from "path";
 //import { app } from "";
 import VehicleRouter from './routes/VehicleRouter';
+import { Router, Request, Response, NextFunction } from "express";
 
 class Server {
   // creación de la instancia del middleware de express
   app: express.Application;
+
+  // my on middlewares
+  private middlewares = {
+
+    isLoggedIn : function (req: Request, res: Response, next: any) {
+      console.log(`query: ${req.query.id}`);
+      return next();
+    }
+};
 
   constructor() {
     this.app = express();
@@ -25,18 +35,19 @@ class Server {
     // para permitir una interface de tratamiento de datos más fácil
     this.app.use(bodyParser.urlencoded({extended: true}));
     this.app.use(bodyParser.json());
-    this.app.use((req, res, next) => {
+    this.app.use((_req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header(
         "Access-Control-Allow-Methods",
         "GET, POST, PUT, DELETE, OPTIONS"
       );
+      res.setHeader('Content-Type', 'application/json');
       res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials"
       );
       res.header("Access-Control-Allow-Credentials", "true");
-      next();
+      next(); // chain the another middleware in pipeline
     });
   }
 
@@ -48,7 +59,11 @@ class Server {
 
     // seteo de nuestro manejador
     this.app.use('/vehicles', VehicleRouter);
-    this.app.get('/hola', () => console.log("Hola mundo"))
+    this.app.get('/test', this.middlewares.isLoggedIn, (req: Request, res: Response) => {
+      console.log("inside test route config");
+      console.log(req.headers);
+      res.send({message: 'ok'})
+    });
 
     //Set Port
     this.app.listen(process.env.PORT || 5000);
