@@ -5,6 +5,7 @@ import bodyParser = require("body-parser");
 //import { path } from "path";
 //import { app } from "";
 import VehicleRouter from './routes/VehicleRouter';
+import CompanyRouter from './routes/CompanyRouter';
 import { Router, Request, Response, NextFunction } from "express";
 
 class Server {
@@ -59,6 +60,7 @@ class Server {
 
     // seteo de nuestro manejador
     this.app.use('/vehicles', VehicleRouter);
+    this.app.use('/companies', CompanyRouter);
     this.app.get('/test', this.middlewares.isLoggedIn, (req: Request, res: Response) => {
       console.log("inside test route config");
       console.log(req.headers);
