@@ -3,6 +3,7 @@ import bodyParser = require("body-parser");
 //import { path } from "path";
 //import { app } from "";
 import VehicleRouter from './routes/VehicleRouter';
+import CompanyRouter from './routes/CompanyRouter';
 
 class Server {
   // creación de la instancia del middleware de express
@@ -46,6 +47,7 @@ class Server {
 
     // seteo de nuestro manejador
     this.app.use('/vehicles', VehicleRouter);
+    this.app.use('/companies', CompanyRouter);
 
     //Set Port
     let port = 5000;
