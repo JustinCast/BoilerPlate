@@ -6,3 +6,10 @@ exports.c = {
     server: '172.24.4.40',
     database: 'OctoBird'
 };
+exports.postgresql = {
+    host: '172.24.4.40',
+    user: 'cm_learning',
+    password: 'A6Pw6qJkVfRqq5uV',
+    database: 'OctoBird',
+    port: 5432
+};

@@ -76,6 +76,4 @@ class VehicleRouter {
 
 const vehicleRoutes = new VehicleRouter();
 vehicleRoutes.routes();
-
-
 export default vehicleRoutes.router;
