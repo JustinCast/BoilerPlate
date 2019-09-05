@@ -26,13 +26,7 @@ class VehicleRouter {
 
   getVehiclesPostgres(req: Request, res: Response) {
     try {
-      let client = new Client({
-        host: "172.24.4.40",
-        user: "cm_learning",
-        password: "A6Pw6qJkVfRqq5uV",
-        database: "OctoBird",
-        port: 5432
-      });
+      let client = new Client();
       client.connect(err => {
         if (err) res.json(err);
         else {

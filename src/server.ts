@@ -4,6 +4,7 @@ import bodyParser = require("body-parser");
 //import { app } from "";
 import VehicleRouter from './routes/VehicleRouter';
 import { Router, Request, Response, NextFunction } from "express";
+import CompanyRouter from "./routes/CompanyRouter";
 
 class Server {
   // creación de la instancia del middleware de express
@@ -57,6 +58,7 @@ class Server {
 
     // seteo de nuestro manejador
     this.app.use('/vehicles', VehicleRouter);
+    this.app.use('/companies', CompanyRouter);
     this.app.get('/test', this.middlewares.isLoggedIn, (req: Request, res: Response) => {
       console.log("inside test route config");
       console.log(req.headers);

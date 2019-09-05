@@ -72,13 +72,7 @@ var VehicleRouter = /** @class */ (function () {
     };
     VehicleRouter.prototype.getVehiclesPostgres = function (req, res) {
         try {
-            var client_1 = new pg_1.Client({
-                host: "172.24.4.40",
-                user: "cm_learning",
-                password: "A6Pw6qJkVfRqq5uV",
-                database: "OctoBird",
-                port: 5432
-            });
+            var client_1 = new pg_1.Client();
             client_1.connect(function (err) {
                 if (err)
                     res.json(err);

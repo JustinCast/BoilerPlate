@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 //import { path } from "path";
 //import { app } from "";
 var VehicleRouter_1 = __importDefault(require("./routes/VehicleRouter"));
+var CompanyRouter_1 = __importDefault(require("./routes/CompanyRouter"));
 var Server = /** @class */ (function () {
     function Server() {
         // my on middlewares
@@ -46,6 +47,7 @@ var Server = /** @class */ (function () {
         //this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
         // seteo de nuestro manejador
         this.app.use('/vehicles', VehicleRouter_1.default);
+        this.app.use('/companies', CompanyRouter_1.default);
         this.app.get('/test', this.middlewares.isLoggedIn, function (req, res) {
             console.log("inside test route config");
             console.log(req.headers);
