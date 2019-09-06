@@ -70,48 +70,6 @@ var VehicleRouter = /** @class */ (function () {
             });
         });
     };
-<<<<<<< HEAD
-    VehicleRouter.prototype.getVehiclesPostgress = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var client_1;
-            return __generator(this, function (_a) {
-                try {
-                    client_1 = new pg_1.Client({
-                        host: "172.24.4.40",
-                        user: "cm_learning",
-                        password: "A6Pw6qJkVfRqq5uV",
-                        database: "OctoBird"
-                    });
-                    client_1.connect(function (err) {
-                        if (err)
-                            res.json(err);
-                        else {
-                            var query = "SELECT * FROM vehicle";
-                            client_1.query(query)
-                                .then(function (data) { return res.json(data.rows); })
-                                .catch(function (err) { return console.error("Ha ocurriddo un error al consultar en getVehicles " + JSON.stringify(err)); });
-                        }
-                    });
-                }
-                catch (error) {
-                    console.log("Ha ocurrido un error en el metodo getVehiclesPostgress " + JSON.stringify(error));
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
-    VehicleRouter.prototype.getVehicle = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
-    };
-    VehicleRouter.prototype.routes = function () {
-        this.router.get('/getVehicles', this.getVehicles);
-        this.router.get('/getVehiclesPostgress', this.getVehiclesPostgress);
-        this.router.get('/getVehicle/:id', this.getVehicle);
-=======
     VehicleRouter.prototype.getVehiclesPostgres = function (req, res) {
         try {
             var client_1 = new pg_1.Client({
@@ -153,7 +111,6 @@ var VehicleRouter = /** @class */ (function () {
         this.router.get("/getVehicles", this.getVehicles);
         this.router.get("/getVehiclesPostgres", this.getVehiclesPostgres);
         this.router.get("/getVehicle/:id", this.getVehicle);
->>>>>>> master
     };
     return VehicleRouter;
 }());
