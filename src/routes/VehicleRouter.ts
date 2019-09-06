@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 const { config } = require("dotenv");  
 import { c } from "../../config/config";
 const { ConnectionPool } = require("mssql");  
+import pg from "pg";
 
 class VehicleRouter {
   router: Router;
@@ -24,13 +25,44 @@ class VehicleRouter {
     }
   }
 
-  getVehicle(): void {
+  getVehiclesPostgres(req: Request, res: Response){
+      try{
+          let client = new pg.Client({
+            host: "172.24.4.40",
+            user: "cm_learning",
+            password: "A6Pw6qJkVfRqq5uV",
+            database: "OctoBird",
+            port:5432
+          });
+          client.connect(err =>{
+            if(err)
+              res.json(err);
+            else{
+              let query = {
+                text:"SELECT * FROM vehicle WHERE name = $1",
+                values: [
+                  req.params.name
+                ]
+              };
+              client.query(query)
+              .then(data => res.json(data.rows))
+              .catch(err => console.error(`Ha ocurrrido un error en el metodo getVehivlePostgre ${JSON.stringify(err)}`))
+            }
+          })
+      } catch(error){
+        console.log(`Ha ocurrrido un error en el metodo getVehivlePostgre ${JSON.stringify(error)}`);
+      }
+  }
 
+  getVehicle(req: Request, res: Response): void {
+      let id = req.params.id;
+      let query = `SELECT * FROM vehicle WHERE id = ${id}`;
   }
 
 
 
   routes() {
+    this.router.get('/getVehiclesPostgres', this.getVehicle);
     this.router.get('/getVehicles', this.getVehicles);
     this.router.get('/getVehicle/:id', this.getVehicle);
   }
@@ -38,6 +70,5 @@ class VehicleRouter {
 
 const vehicleRoutes = new VehicleRouter();
 vehicleRoutes.routes();
-
 
 export default vehicleRoutes.router;
