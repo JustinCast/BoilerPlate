@@ -34,11 +34,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var config = require("dotenv").config;
 var config_1 = require("../../config/config");
 var ConnectionPool = require("mssql").ConnectionPool;
+var pg_1 = __importDefault(require("pg"));
 var VehicleRouter = /** @class */ (function () {
     function VehicleRouter() {
         this.router = express_1.Router();
@@ -70,12 +74,46 @@ var VehicleRouter = /** @class */ (function () {
             });
         });
     };
-    VehicleRouter.prototype.getVhieclesPostgres = function (req, res) {
+    VehicleRouter.prototype.getVehiclesPostgres = function (req, res) {
+        try {
+            var client_1 = new pg_1.default.Client({
+                host: "172.24.4.40",
+                user: "cm_learning",
+                password: "A6Pw6qJkVfRqq5uV",
+                database: "OctoBird",
+                port: 5432
+            });
+            client_1.connect(function (err) {
+                if (err) {
+                    res.json(err);
+                }
+                else {
+                    var query = {
+                        text: "SELECT * FROM vehicle WHERE name = $1",
+                        values: [
+                            req.params.name
+                        ]
+                    };
+                    client_1.query(query)
+                        .then(function (data) {
+                        res.json(data.rows),
+                            client_1.end();
+                    })
+                        .catch(function (err) { return console.log("Ha ocurrido un error al conmsultar en getVehiclePostgres " + JSON.stringify(err)); });
+                }
+            });
+        }
+        catch (error) {
+            console.log("Ha ocurrido un error en el metodo getVehiclePostgres " + JSON.stringify(error));
+        }
     };
-    VehicleRouter.prototype.getVehicle = function () {
+    VehicleRouter.prototype.getVehicle = function (req, res) {
+        var id = req.params.id;
+        var query = "SELECT * FROM vehicle WHERE id = " + id;
     };
     VehicleRouter.prototype.routes = function () {
         this.router.get('/getVehicles', this.getVehicles);
+        this.router.get('/getVehiclesPostgres', this.getVehicles);
         this.router.get('/getVehicle/:id', this.getVehicle);
     };
     return VehicleRouter;

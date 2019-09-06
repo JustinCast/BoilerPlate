@@ -27,14 +27,28 @@ class VehicleRouter {
 
   getVehiclesPostgres(req: Request, res: Response){
     try{
-      let client = new pg.Client(c);
+      let client = new pg.Client({
+        host: "172.24.4.40",
+        user: "cm_learning",
+        password: "A6Pw6qJkVfRqq5uV",
+        database: "OctoBird",
+        port: 5432
+      });
       client.connect(err => {
         if(err){
           res.json(err);
         }else{
-          let query = "SELECT * FROM vehicle";
+          let query = {
+            text: "SELECT * FROM vehicle WHERE name = $1",
+            values: [
+              req.params.name
+            ]
+          };
           client.query(query)
-          .then(data => res.json(data.rows))
+          .then(data => {
+            res.json(data.rows),
+            client.end();
+          })
           .catch(err => console.log(`Ha ocurrido un error al conmsultar en getVehiclePostgres ${JSON.stringify(err)}`))
         }
       });
@@ -43,8 +57,9 @@ class VehicleRouter {
     }
   }
 
-  getVehicle(): void {
-
+  getVehicle(req: Request, res: Response): void {
+    let id = req.params.id;
+    let query = `SELECT * FROM vehicle WHERE id = ${id}`;
   }
 
 

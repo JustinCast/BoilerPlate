@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 //import { path } from "path";
 //import { app } from "";
 var VehicleRouter_1 = __importDefault(require("./routes/VehicleRouter"));
+var CompanyRouter_1 = __importDefault(require("./routes/CompanyRouter"));
 var Server = /** @class */ (function () {
     function Server() {
         this.app = express();
@@ -38,7 +39,7 @@ var Server = /** @class */ (function () {
         //this.app.use(express.static(__dirname + "/dist/verduleriavirtualweb"));
         // seteo de nuestro manejador
         this.app.use('/vehicles', VehicleRouter_1.default);
-        this.app.get('/hola', function () { return console.log('Hola Mundo'); });
+        this.app.get('/company', CompanyRouter_1.default);
         //Set Port
         this.app.listen(process.env.PORT || 5000);
     };

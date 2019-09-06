@@ -4,3 +4,11 @@ export const c = {
   server: '172.24.4.40',
   database: 'OctoBird'
 };
+
+export const postgresConfig= {
+  host: "172.24.4.40",
+  user: "cm_learning",
+  password: "A6Pw6qJkVfRqq5uV",
+  database: "OctoBird",
+  port: 5432
+};
